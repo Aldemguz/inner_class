@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ clases internas locales:
+    Una clase dentro de un metodo.
+    se utiliza cuando se instancia la clase interna 1 vez. el objetivo es simplificar
+    aun mas el codigo
+    las clases internas locales, no utilizan modificadores de acceso (private, public)
  */
 package inner_join;
 
@@ -15,8 +17,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Reloj reloj = new Reloj(3000,false);
-        reloj.enMarcha();
+        Reloj reloj = new Reloj();
+        reloj.enMarcha(3000,true);
         JOptionPane.showMessageDialog(null,"Pulsa Aceptar para terminar");
         System.exit(0);
     
@@ -25,22 +27,10 @@ public class Main {
 }
 
 class Reloj{
-    
-    public Reloj(int intervalo, boolean sonido){
-        this.intervalo = intervalo;
-        this.sonido = sonido;
+    //Para utilizar variables locales dentro de una clase local, tiene q ser final
+    public void enMarcha(int intervalo, final boolean sonido){
         
-    }
-    
-    public void enMarcha(){
-         ActionListener oyente = new DameLaHora2();
-         Timer miTemporizador = new Timer(intervalo,oyente);
-         miTemporizador.start();
-    }
-    private int intervalo;
-    private boolean sonido;
-    
-    private class DameLaHora2 implements ActionListener {
+         class DameLaHora2 implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e){
@@ -50,5 +40,11 @@ class Reloj{
         Toolkit.getDefaultToolkit().beep(); 
     }
 }
+         ActionListener oyente = new DameLaHora2();
+         Timer miTemporizador = new Timer(intervalo,oyente);
+         miTemporizador.start();
+         
     
+    }
+ 
 }
