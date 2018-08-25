@@ -5,21 +5,50 @@
  */
 package inner_join;
 
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+import javax.swing.Timer;
+import java.awt.Toolkit;
 
 public class Main {
 
     public static void main(String[] args) {
-        
-        //DameLaHora oyente = new DameLaHora();
-        ActionListener oyente = new DameLaHora();
-        Timer miTemporizador = new Timer(5000,oyente);
-        
-        miTemporizador.start();//Con esto hacemos que comience.
-        JOptionPane.showMessageDialog(null, "pulsa aceptar para detener");
+
+        Reloj reloj = new Reloj(3000,false);
+        reloj.enMarcha();
+        JOptionPane.showMessageDialog(null,"Pulsa Aceptar para terminar");
         System.exit(0);
     
     }
+    
+}
+
+class Reloj{
+    
+    public Reloj(int intervalo, boolean sonido){
+        this.intervalo = intervalo;
+        this.sonido = sonido;
+        
+    }
+    
+    public void enMarcha(){
+         ActionListener oyente = new DameLaHora2();
+         Timer miTemporizador = new Timer(intervalo,oyente);
+         miTemporizador.start();
+    }
+    private int intervalo;
+    private boolean sonido;
+    
+    private class DameLaHora2 implements ActionListener {
+    
+    @Override
+    public void actionPerformed(ActionEvent e){
+        Date ahora = new Date();
+        System.out.println("Te coloco la hora cada 3s: "+ahora);
+        if(sonido)
+        Toolkit.getDefaultToolkit().beep(); 
+    }
+}
     
 }
